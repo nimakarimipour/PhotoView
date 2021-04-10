@@ -1,31 +1,9 @@
-buildscript {
-    repositories {
-        mavenLocal()
-        mavenCentral()
-    }
-    dependencies {
-        classpath 'edu.ucr.cs.riple:NullAwayAutoFixer:1.0-SNAPSHOT'
-    }
-}
-
 plugins {
     id("net.ltgt.errorprone") version "0.6"
 }
 
 apply plugin: 'com.android.library'
 apply plugin: 'maven-publish'
-apply plugin: 'edu.ucr.cs.riple.plugin'
-
-
-autoFixMode {
-    fixPath = "/tmp/NullAwayFix"
-    maximumRound = 20
-}
-
-diagnoseMode {
-    fixPath = "/tmp/NullAwayFix/diagnose.json"
-    deep = true
-}
 
 repositories {
     mavenLocal()
@@ -129,4 +107,3 @@ tasks.withType(JavaCompile) {
         options.compilerArgs << "-Xmaxerrs" << "100000"
     }
 }
-
