@@ -22,8 +22,8 @@ import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.util.AttributeSet;
 import android.view.GestureDetector;
-
 import androidx.appcompat.widget.AppCompatImageView;
+import javax.annotation.Nullable;
 
 /**
  * A zoomable ImageView. See {@link PhotoViewAttacher} for most of the details on how the zooming
@@ -33,27 +33,29 @@ import androidx.appcompat.widget.AppCompatImageView;
 public class PhotoView extends AppCompatImageView {
 
     private PhotoViewAttacher attacher;
+
+    @Nullable()
     private ScaleType pendingScaleType;
 
     public PhotoView(Context context) {
         this(context, null);
     }
 
-    public PhotoView(Context context, AttributeSet attr) {
+    public PhotoView(Context context, @Nullable() AttributeSet attr) {
         this(context, attr, 0);
     }
 
-    public PhotoView(Context context, AttributeSet attr, int defStyle) {
+    public PhotoView(Context context, @Nullable() AttributeSet attr, int defStyle) {
         super(context, attr, defStyle);
         init();
     }
 
     private void init() {
         attacher = new PhotoViewAttacher(this);
-        //We always pose as a Matrix scale type, though we can change to another scale type
-        //via the attacher
+        // We always pose as a Matrix scale type, though we can change to another scale type
+        // via the attacher
         super.setScaleType(ScaleType.MATRIX);
-        //apply the previously applied scale type
+        // apply the previously applied scale type
         if (pendingScaleType != null) {
             setScaleType(pendingScaleType);
             pendingScaleType = null;
@@ -150,6 +152,7 @@ public class PhotoView extends AppCompatImageView {
         attacher.setZoomable(zoomable);
     }
 
+    @Nullable()
     public RectF getDisplayRect() {
         return attacher.getDisplayRect();
     }
@@ -158,7 +161,8 @@ public class PhotoView extends AppCompatImageView {
         attacher.getDisplayMatrix(matrix);
     }
 
-    @SuppressWarnings("UnusedReturnValue") public boolean setDisplayMatrix(Matrix finalRectangle) {
+    @SuppressWarnings("UnusedReturnValue")
+    public boolean setDisplayMatrix(Matrix finalRectangle) {
         return attacher.setDisplayMatrix(finalRectangle);
     }
 
