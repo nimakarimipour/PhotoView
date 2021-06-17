@@ -30,12 +30,13 @@ import android.view.animation.Interpolator;
 import android.widget.ImageView;
 import android.widget.ImageView.ScaleType;
 import android.widget.OverScroller;
-
+import javax.annotation.Nullable;
 /**
  * The component of {@link PhotoView} which does the work allowing for zooming, scaling, panning, etc.
  * It is made public in case you need to subclass something other than AppCompatImageView and still
  * gain the functionality that {@link PhotoView} offers
  */
+
 public class PhotoViewAttacher implements View.OnTouchListener,
     View.OnLayoutChangeListener {
 
@@ -67,6 +68,7 @@ public class PhotoViewAttacher implements View.OnTouchListener,
 
     // Gesture Detectors
     private GestureDetector mGestureDetector;
+    @Nullable
     private CustomGestureDetector mScaleDragDetector;
 
     // These are set so we don't keep allocating them on the heap
@@ -87,6 +89,7 @@ public class PhotoViewAttacher implements View.OnTouchListener,
     private OnSingleFlingListener mSingleFlingListener;
     private OnViewDragListener mOnViewDragListener;
 
+    @Nullable
     private FlingRunnable mCurrentFlingRunnable;
     private int mHorizontalScrollEdge = HORIZONTAL_EDGE_BOTH;
     private int mVerticalScrollEdge = VERTICAL_EDGE_BOTH;
@@ -248,14 +251,17 @@ public class PhotoViewAttacher implements View.OnTouchListener,
         });
     }
 
+    @Initializer
     public void setOnDoubleTapListener(GestureDetector.OnDoubleTapListener newOnDoubleTapListener) {
         this.mGestureDetector.setOnDoubleTapListener(newOnDoubleTapListener);
     }
 
+    @Initializer
     public void setOnScaleChangeListener(OnScaleChangedListener onScaleChangeListener) {
         this.mScaleChangeListener = onScaleChangeListener;
     }
 
+    @Initializer
     public void setOnSingleFlingListener(OnSingleFlingListener onSingleFlingListener) {
         this.mSingleFlingListener = onSingleFlingListener;
     }
@@ -265,6 +271,7 @@ public class PhotoViewAttacher implements View.OnTouchListener,
         return mZoomEnabled;
     }
 
+    @Nullable
     public RectF getDisplayRect() {
         checkMatrixBounds();
         return getDisplayRect(getDrawMatrix());
@@ -410,10 +417,12 @@ public class PhotoViewAttacher implements View.OnTouchListener,
         mMaxScale = maximumScale;
     }
 
+    @Initializer
     public void setOnLongClickListener(OnLongClickListener listener) {
         mLongClickListener = listener;
     }
 
+    @Initializer
     public void setOnClickListener(View.OnClickListener listener) {
         mOnClickListener = listener;
     }
@@ -422,18 +431,22 @@ public class PhotoViewAttacher implements View.OnTouchListener,
         mMatrixChangeListener = listener;
     }
 
+    @Initializer
     public void setOnPhotoTapListener(OnPhotoTapListener listener) {
         mPhotoTapListener = listener;
     }
 
+    @Initializer
     public void setOnOutsidePhotoTapListener(OnOutsidePhotoTapListener mOutsidePhotoTapListener) {
         this.mOutsidePhotoTapListener = mOutsidePhotoTapListener;
     }
 
+    @Initializer
     public void setOnViewTapListener(OnViewTapListener listener) {
         mViewTapListener = listener;
     }
 
+    @Initializer
     public void setOnViewDragListener(OnViewDragListener listener) {
         mOnViewDragListener = listener;
     }
@@ -551,6 +564,7 @@ public class PhotoViewAttacher implements View.OnTouchListener,
         checkMatrixBounds();
     }
 
+    @Initializer
     private void setImageViewMatrix(Matrix matrix) {
         mImageView.setImageMatrix(matrix);
         // Call MatrixChangedListener if needed
@@ -577,6 +591,7 @@ public class PhotoViewAttacher implements View.OnTouchListener,
      * @param matrix - Matrix to map Drawable against
      * @return RectF - Displayed Rectangle
      */
+    @Nullable
     private RectF getDisplayRect(Matrix matrix) {
         Drawable d = mImageView.getDrawable();
         if (d != null) {

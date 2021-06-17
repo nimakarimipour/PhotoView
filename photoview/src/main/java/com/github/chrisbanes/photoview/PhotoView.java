@@ -24,26 +24,28 @@ import android.util.AttributeSet;
 import android.view.GestureDetector;
 
 import androidx.appcompat.widget.AppCompatImageView;
-
+import javax.annotation.Nullable;
 /**
  * A zoomable ImageView. See {@link PhotoViewAttacher} for most of the details on how the zooming
  * is accomplished
  */
+
 @SuppressWarnings("unused")
 public class PhotoView extends AppCompatImageView {
 
     private PhotoViewAttacher attacher;
+    @Nullable
     private ScaleType pendingScaleType;
 
     public PhotoView(Context context) {
         this(context, null);
     }
 
-    public PhotoView(Context context, AttributeSet attr) {
+    public PhotoView(Context context, @Nullable AttributeSet attr) {
         this(context, attr, 0);
     }
 
-    public PhotoView(Context context, AttributeSet attr, int defStyle) {
+    public PhotoView(Context context, @Nullable AttributeSet attr, int defStyle) {
         super(context, attr, defStyle);
         init();
     }
@@ -150,6 +152,7 @@ public class PhotoView extends AppCompatImageView {
         attacher.setZoomable(zoomable);
     }
 
+    @Nullable
     public RectF getDisplayRect() {
         return attacher.getDisplayRect();
     }

@@ -20,10 +20,11 @@ import android.view.MotionEvent;
 import android.view.ScaleGestureDetector;
 import android.view.VelocityTracker;
 import android.view.ViewConfiguration;
-
+import javax.annotation.Nullable;
 /**
  * Does a whole lot of gesture detecting.
  */
+
 class CustomGestureDetector {
 
     private static final int INVALID_POINTER_ID = -1;
@@ -32,6 +33,7 @@ class CustomGestureDetector {
     private int mActivePointerIndex = 0;
     private final ScaleGestureDetector mDetector;
 
+    @Nullable
     private VelocityTracker mVelocityTracker;
     private boolean mIsDragging;
     private float mLastTouchX;
